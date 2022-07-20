@@ -55,32 +55,105 @@ let btnT3 = document.getElementById('t3');
 let QuestionPage = document.getElementById('questions');
 var randomIndex = Math.floor(Math.random() * 3);
 var questionTitle = document.getElementById('question-title');
+var questionAlterA = document.getElementById('a');
+var questionAlterB = document.getElementById('b');
+var questionAlterC = document.getElementById('c');
 var theme;
+
+QuestionPage.style.display = "none";
+
 
 function changeScreen(){
     ThemePage.style.display = "none";
-    QuestionPage.style.display = "flex"
+    QuestionPage.style.display = "flex";
 }
-QuestionPage.style.display = "none";
-btnT1.addEventListener("click", ()=>{
-    theme = 'Animal';
+function hasSelected(alterLetter){
+    var selected_answer = document.getElementsByClassName('selected-answer');
+    console.log("selecionadas: " + selected_answer.length);
+    var reviewAlter = document.getElementById(alterLetter);
+
+    if(selected_answer.length > 1){
+        alert("mais de uma resposta selecionada!");
+        reviewAlter.classList.remove('selected-answer');
+    }
+}
+function selectedAnswer(){
+    var alternativeA = document.getElementById('a');
+    var alternativeB = document.getElementById('b');
+    var alternativeC = document.getElementById('c');
+
+
+    alternativeA.addEventListener("click", ()=>{
+        if(alternativeA.classList.contains('answer-item')){
+            console.log("Selecionou")
+            alternativeA.classList.toggle('selected-answer');
+        }else{
+            console.log("Ocorreu algum erro.")
+        }
+       
+       hasSelected('a');
+       
+    })
+    alternativeB.addEventListener("click", ()=>{
+        if(alternativeB.classList.contains('answer-item')){
+            console.log("Selecionou")
+            alternativeB.classList.toggle('selected-answer');
+        }else{
+            console.log("Ocorreu algum erro.")
+        }
+        hasSelected('b');
+    })
+    alternativeC.addEventListener("click", ()=>{
+        if(alternativeC.classList.contains('answer-item')){
+            console.log("Selecionou")
+            alternativeC.classList.toggle('selected-answer');
+        }else{
+            console.log("Ocorreu algum erro.")
+        }
+        hasSelected('c');
+    })
+}
+function displayQuestion(theme){
+    switch(theme){
+        case 'prog': theme = prog_question[randomIndex];
+        break;
+        case 'ani': theme = animal_question[randomIndex];
+        break;
+        default: console.log("Nada");
+        break;
+    }
+    //theme = prog_question[randomIndex];
     console.log(theme);
+    
+    questionTitle.appendChild(document.createTextNode(theme.pergunta));
+    questionAlterA.children[1].appendChild(document.createTextNode(theme.a));
+    questionAlterB.children[1].appendChild(document.createTextNode(theme.b));
+    questionAlterC.children[1].appendChild(document.createTextNode(theme.c));
+
+    var opt = document.getElementsByClassName('selected-answer');
+    console.log(opt[0]);
+}
+btnT1.addEventListener("click", ()=>{
     changeScreen();
+    selectedAnswer();
+    displayQuestion('ani');
+
+       
 })
 btnT2.addEventListener("click", ()=>{
-    theme = 'Informática';
-    console.log(theme);
-
-    questionTitle.appendChild(document.createTextNode(prog_question[randomIndex].pergunta))
-
     changeScreen();
+    selectedAnswer();
+    displayQuestion('prog')
 
+    
 })
 btnT3.addEventListener("click", ()=>{
-    theme = 'Cultura pop';
-    console.log(theme);
     changeScreen();
+    selectedAnswer();
+    displayQuestion('prog')
+
 })
+
 console.log("Tema: " + theme)
 
 

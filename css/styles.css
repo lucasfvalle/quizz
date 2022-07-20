@@ -175,7 +175,9 @@ body{
     font-size: 1.1em;
     color: #303030
 }
-
+.selected-answer{
+    background-color: #63dc97;
+}
 
 /* Rodapé */
 footer{
