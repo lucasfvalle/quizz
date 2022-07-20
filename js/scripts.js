@@ -8,7 +8,7 @@ var prog_question = [
         "c" : "James Gosling",
     },
     {
-        "pergunta" : "Quem foi o criador da Microsoft",
+        "pergunta" : "Quem foi o criador da Microsoft?",
         "resposta": "Bill Gates", 
         "a" : "Steve Jobs",
         "b" : "Linus Torvalds",
@@ -47,7 +47,41 @@ var animal_question = [
 
 ]
 
+// Elementos
+let ThemePage = document.getElementById('initial');
+let btnT1 = document.getElementById('t1');
+let btnT2 = document.getElementById('t2');
+let btnT3 = document.getElementById('t3');
+let QuestionPage = document.getElementById('questions');
+var randomIndex = Math.floor(Math.random() * 3);
+var questionTitle = document.getElementById('question-title');
+var theme;
+
+function changeScreen(){
+    ThemePage.style.display = "none";
+    QuestionPage.style.display = "flex"
+}
+QuestionPage.style.display = "none";
+btnT1.addEventListener("click", ()=>{
+    theme = 'Animal';
+    console.log(theme);
+    changeScreen();
+})
+btnT2.addEventListener("click", ()=>{
+    theme = 'Informática';
+    console.log(theme);
+
+    questionTitle.appendChild(document.createTextNode(prog_question[randomIndex].pergunta))
+
+    changeScreen();
+
+})
+btnT3.addEventListener("click", ()=>{
+    theme = 'Cultura pop';
+    console.log(theme);
+    changeScreen();
+})
+console.log("Tema: " + theme)
+
+
 //let randomnumb = Math.floor(Math.random() * 10);
-var ani = animal_question[0];
-console.log(ani.pergunta);
-console.log(ani.resposta);

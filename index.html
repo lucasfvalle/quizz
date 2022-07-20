@@ -19,24 +19,55 @@
             <h1>Quizz</h1>
         </header>
         <main class="content">
-            <div class="initial">
+            <div class="initial" id="initial" >
                 <h2>Vamos começar!</h2>
-                <p> Escolha um dos temas abaixo </p>
+                <p> Escolha um dos temas abaixo: </p>
                 <div class="theme-button">
-                    <button id="t1" class="theme-button-item"> Programação </button>
-                    <button id="t2" class="theme-button-item"> Animais </button>
-                    <button id="t3" class="theme-button-item"> Cultura pop </button>
+                    <button id="t1" class="theme-button-item"> Tema 1 </button>
+                    <button id="t2" class="theme-button-item"> Tema 2 </button>
+                    <button id="t3" class="theme-button-item"> Tema 3 </button>
                 </div>
                 
             </div>
 
+            <div class="question-panel" id="questions">
+                <div class="question-box">
+                    <i class="bi bi-question-circle"></i>
+                    <h2 id="question-title"><!-- A pergunta aparece aqui--></h2>
+                </div>
+                <div class="answer-box">
+                    <ul class="answer-list">
+                        <li id="a" class="answer-item">
+                            <span>A</span>
+                            <p>
+                                Brendan Eich
+                            </p>
+                        </li>
+                        <li class="answer-item">
+                            <span>B</span>
+                            <p>
+                                Dennis Ritchie
+                            </p>
+                        </li>
+                        <li class="answer-item">
+                            <span>C</span>
+                            <p>
+                                James Gosling
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        
+
             
            
         </main>
-        <footer>
-            <h3>Desenvolvido para fins de estudo por <a href="">Lucas Valle</a></h3>
-        </footer>
+        
     </div>
+    <footer>
+        <h3>Desenvolvido para fins de estudo por <a href="">Lucas Valle</a></h3>
+    </footer>
     
 </body>
 </html>
