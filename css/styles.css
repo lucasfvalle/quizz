@@ -63,6 +63,9 @@ body{
     color: #303030;
     text-align: center;
 }
+.initial h2{
+    padding: 0 10px;
+}
 .initial p{
     margin-bottom: 2em;
 }
