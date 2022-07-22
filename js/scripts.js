@@ -98,28 +98,32 @@ const MakeQuestionPage = (theme) =>{
         }
         console.log(opt);
     }
-    const verifyOpt = () =>{
-        var opts = questionList.children.length;
-        for(i = 0; i < opts; i++){
-
-            console.log(questionList.children[1].classList.contains('selected_answer'));
+    const verifyOpt = (opt) =>{
+        var optS = document.getElementsByClassName('selected-answer');
+        console.log(optS);
+        
+        for(var i = 0; i < optS.length; i++){
+            if(optS.length > 1){
+                alert("Nao!");
+                opt.classList.remove('selected-answer');
+            }
         }
     }
 
     optA.addEventListener("click", () =>{
         optA.classList.toggle('selected-answer');
         selected_answer(chosenTheme, 'a');
-        verifyOpt();
+        verifyOpt(optA);
     })
     optB.addEventListener("click", () =>{
         optB.classList.toggle('selected-answer');
         selected_answer(chosenTheme, 'b');
-        verifyOpt();
+        verifyOpt(optB);
     })
     optC.addEventListener("click", () =>{
         optC.classList.toggle('selected-answer');
         selected_answer(chosenTheme, 'c');
-        verifyOpt();
+        verifyOpt(optC);
     })
 
 }
