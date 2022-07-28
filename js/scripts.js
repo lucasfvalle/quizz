@@ -93,10 +93,11 @@ const MakeQuestionPage = (theme) =>{
         if(opt ==  chosenTheme.resposta){
             alert("certo");
             //MakeQuestionPage(theme);
+            return true
         }else{
-            alert("Errado")
+            alert("Errado");
+            return false
         }
-        console.log(opt);
     }
     const verifyOpt = (opt) =>{
         var optS = document.getElementsByClassName('selected-answer');
@@ -108,22 +109,32 @@ const MakeQuestionPage = (theme) =>{
                 opt.classList.remove('selected-answer');
             }
         }
+        console.log("RESPOSTA CERTA:" + chosenTheme.resposta);
+        return chosenTheme.resposta;
     }
 
     optA.addEventListener("click", () =>{
-        optA.classList.toggle('selected-answer');
-        selected_answer(chosenTheme, 'a');
+        
+        if(selected_answer(chosenTheme, 'a')){
+            optA.classList.toggle('selected-answer');
+            console.log("resposta" + chosenTheme.resposta);
+        };
         verifyOpt(optA);
     })
     optB.addEventListener("click", () =>{
-        optB.classList.toggle('selected-answer');
-        selected_answer(chosenTheme, 'b');
+       
+        if(selected_answer(chosenTheme, 'b')){
+            optB.classList.toggle('selected-answer');
+            console.log("resposta" + chosenTheme.resposta);
+        }else{
+            optB.classList.toggle('incorrect-answer');
+        }
         verifyOpt(optB);
     })
     optC.addEventListener("click", () =>{
-        optC.classList.toggle('selected-answer');
-        selected_answer(chosenTheme, 'c');
-        verifyOpt(optC);
+        if(selected_answer(chosenTheme, 'c')){
+            optC.classList.toggle('selected-answer');
+        };
     })
 
 }
