@@ -53,6 +53,8 @@ let btnT1 = document.getElementById('t1');
 let btnT2 = document.getElementById('t2');
 let btnT3 = document.getElementById('t3');
 let QuestionPage = document.getElementById('questions');
+let playerScore = document.getElementById('player-score');
+playerScore.style.display = "none";
 QuestionPage.style.display = "none";
 
 var randomIndex = Math.floor(Math.random() * 3);
@@ -65,8 +67,10 @@ var questionAlterC = document.getElementById('c');
 var theme;
 
 const ChangeScreen = () =>{
+        playerScore.style.display = "block"
         ThemePage.style.display = "none";
         QuestionPage.style.display = "flex";
+
 }
 const MakeQuestionPage = (theme) =>{
     
@@ -112,6 +116,10 @@ const MakeQuestionPage = (theme) =>{
         console.log("RESPOSTA CERTA:" + chosenTheme.resposta);
         return chosenTheme.resposta;
     }
+    var score = parseInt(playerScore.children[1].innerHTML)
+    score = 0;
+    playerScore.children[1].appendChild(document.createTextNode(score));
+    
 
     optA.addEventListener("click", () =>{
         
@@ -119,6 +127,13 @@ const MakeQuestionPage = (theme) =>{
             optA.classList.toggle('selected-answer');
             console.log("resposta" + chosenTheme.resposta);
         };
+        if(optA.getAttribute('id') == verifyOpt(optA)){
+            score++;
+            playerScore.children[1].innerHTML = score;
+            
+//            playerScore.children[1].appendChild(document.createTextNode(score));
+        }
+        console.log(optA.getAttribute('id'))
         verifyOpt(optA);
     })
     optB.addEventListener("click", () =>{
@@ -129,12 +144,15 @@ const MakeQuestionPage = (theme) =>{
         }else{
             optB.classList.toggle('incorrect-answer');
         }
+        console.log(optB.getAttribute('id'))
         verifyOpt(optB);
     })
     optC.addEventListener("click", () =>{
         if(selected_answer(chosenTheme, 'c')){
             optC.classList.toggle('selected-answer');
         };
+        console.log(optC.getAttribute('id'))
+        verifyOpt(optC);
     })
 
 }

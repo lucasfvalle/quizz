@@ -39,6 +39,17 @@ body{
 .title i{
     font-size: 1.8em;
 }
+.title .player-score{
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    font-size: 1em;
+}
+.title .player-score p{
+    color: #eef1f7;
+    font-weight: bold;
+}
+
 .content{
     height: 550px;
     display: flex;
@@ -114,6 +125,7 @@ body{
     color: #303030;
     border-bottom: 1px solid #f1f1f1;
     margin-bottom: 1.5em;
+    position: relative;
 }
 .question-box i{
     font-size: 1.5em;
