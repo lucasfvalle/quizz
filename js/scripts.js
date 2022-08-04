@@ -81,11 +81,9 @@ const MakeQuestionPage = (theme) =>{
     var optC = document.getElementById('c');
 
     console.log(question)
+    
     // limpar
-    question.appendChild(document.createTextNode(""));
-    optA.children[1].appendChild(document.createTextNode(" "));
-    optB.children[1].appendChild(document.createTextNode(" "));
-    optC.children[1].appendChild(document.createTextNode(" "));
+   
     
     question.appendChild(document.createTextNode(chosenTheme.pergunta));
     optA.children[1].appendChild(document.createTextNode(chosenTheme.a));
