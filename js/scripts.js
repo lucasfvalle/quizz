@@ -1,4 +1,8 @@
+document.addEventListener("DOMContentLoaded", ()=>{
+
+
 // Questões
+
 var prog_question = [
     {
         "pergunta" : "Quem foi o criador do Javascript?",
@@ -47,131 +51,142 @@ var animal_question = [
 
 ]
 
-// Elementos
-let ThemePage = document.getElementById('initial');
-let btnT1 = document.getElementById('t1');
-let btnT2 = document.getElementById('t2');
-let btnT3 = document.getElementById('t3');
-let QuestionPage = document.getElementById('questions');
-let playerScore = document.getElementById('player-score');
-playerScore.style.display = "none";
-QuestionPage.style.display = "none";
+// Telas
+var initialScreen = document.getElementById('initial');
+var questionScreen = document.getElementById('questions');
 
-var randomIndex = Math.floor(Math.random() * 3);
+// Score
+var playerScore = document.getElementById('player-score');
 
+// Escolha dos temas
+var themebt1 = document.getElementById('t1');
+var themebt2 = document.getElementById('t2');
+var themebt3 = document.getElementById('t3');
+var chosenTheme;
+
+// Elementos das perguntas
 var questionTitle = document.getElementById('question-title');
-var questionList = document.getElementById('answer-list');
-var questionAlterA = document.getElementById('a');
-var questionAlterB = document.getElementById('b');
-var questionAlterC = document.getElementById('c');
-var theme;
+let optA = document.getElementById('a');
+var optB = document.getElementById('b');
+var optC = document.getElementById('c');
 
-const ChangeScreen = () =>{
-        playerScore.style.display = "block"
-        ThemePage.style.display = "none";
-        QuestionPage.style.display = "flex";
+// Score
+var score = 0;
+playerScore.children[1].textContent = score;
+
+
+
+
+
+// Próxima pergunta
+var nextQuestion = document.getElementById('next-button');
+var questionIndex = 0;
+
+// Estado inicial
+initialScreen.style.display = "flex";
+questionScreen.style.display = "none";
+playerScore.style.display = "none";
+
+const changeScreen = () =>{
+    initialScreen.style.display = "none";
+    questionScreen.style.display = "flex";
+    playerScore.style.display = "block";
+}
+const cleanQuestion = ()=>{
+    optA.ariaDisabled = false;
+    optB.ariaDisabled = false;
+    optC.ariaDisabled = false;
+    questionTitle.textContent = "";
+    optA.children[1].textContent = "";
+    optB.children[1].textContent = "";
+    optC.children[1].textContent = "";
+    optA.classList.remove('selected-answer');
+    optA.classList.remove('incorrect-answer');
+    optB.classList.remove('selected-answer');
+    optB.classList.remove('incorrect-answer');
+    optC.classList.remove('selected-answer');
+    optC.classList.remove('incorrect-answer');
+}
+
+const mainQuizz = (theme, questionIndex) =>{
+
+    cleanQuestion();
+    theme = theme[questionIndex];
+
+    // Preenche a pergunta e alternativas
+    questionTitle.textContent = theme.pergunta
+    optA.children[1].textContent = theme.a;
+    optB.children[1].textContent = theme.b;
+    optC.children[1].textContent = theme.c;
+    console.log("Question(C): " + optC.children[0].textContent.toLowerCase());
+
+    // Eventos das alternativas
+    optA.addEventListener("click", ()=>{
+        optB.ariaDisabled = true;
+        optC.ariaDisabled = true;
+        if(optA.children[0].textContent.toLowerCase() == theme.resposta){
+            optA.classList.add('selected-answer');
+            optA.classList.remove('incorrect-answer');
+        }else{
+            optA.classList.add('incorrect-answer');c
+        }
+    })
+
+    optB.addEventListener("click", ()=>{
+        if(optB.children[0].textContent.toLowerCase() == theme.resposta){
+            optA.ariaDisabled = true;
+            optC.ariaDisabled = true;
+            optB.classList.add('selected-answer');
+            optB.classList.remove('incorrect-answer');
+        }else{
+            optB.classList.add('incorrect-answer');
+        }
+    })
+
+    optC.addEventListener("click", ()=>{
+        if(optC.children[0].textContent.toLowerCase() == theme.resposta){
+            optA.ariaDisabled = true;
+            optB.ariaDisabled = true;
+            optC.classList.add('selected-answer');
+            optC.classList.remove('incorrect-answer');
+        }else{
+            optC.classList.add('incorrect-answer');
+        }
+    })
 
 }
-const MakeQuestionPage = (theme) =>{
-    
-    var chosenTheme = theme[randomIndex];
-    var question = document.getElementById('question-title');
-    var optA = document.getElementById('a');
-    var optB = document.getElementById('b');
-    var optC = document.getElementById('c');
 
-    console.log(question)
+themebt1.addEventListener("click", ()=>{
+    changeScreen();   
+    chosenTheme = prog_question; 
+    mainQuizz(chosenTheme, questionIndex);
     
-    // limpar
-   
+})
+themebt2.addEventListener("click", ()=>{
+    changeScreen();    
+    chosenTheme = animal_question;
+    mainQuizz(chosenTheme, questionIndex);
     
-    question.appendChild(document.createTextNode(chosenTheme.pergunta));
-    optA.children[1].appendChild(document.createTextNode(chosenTheme.a));
-    optB.children[1].appendChild(document.createTextNode(chosenTheme.b));
-    optC.children[1].appendChild(document.createTextNode(chosenTheme.c));
+})
+themebt3.addEventListener("click", ()=>{
+    changeScreen();    
+    mainQuizz(chosenTheme, questionIndex);
     
+})
 
-    const selected_answer = (chosenTheme, opt) =>{        
-        if(opt ==  chosenTheme.resposta){
-            alert("certo");
-            //MakeQuestionPage(theme);
-            return true
-        }else{
-            alert("Errado");
-            return false
+nextQuestion.addEventListener("click", ()=>{
+    questionIndex++;
+    if(questionIndex <= 2){
+        var selectOpt = document.getElementsByClassName('selected-answer');
+        console.log(playerScore.children[1].textContent);
+        if(selectOpt){
+            playerScore.children[1].textContent = score++;
         }
-    }
-    const verifyOpt = (opt) =>{
-        var optS = document.getElementsByClassName('selected-answer');
-        console.log(optS);
-        
-        for(var i = 0; i < optS.length; i++){
-            if(optS.length > 1){
-                alert("Nao!");
-                opt.classList.remove('selected-answer');
-            }
-        }
-        console.log("RESPOSTA CERTA:" + chosenTheme.resposta);
-        return chosenTheme.resposta;
-    }
-    var score = parseInt(playerScore.children[1].innerHTML)
-    score = 0;
-    playerScore.children[1].appendChild(document.createTextNode(score));
-    
-
-    optA.addEventListener("click", () =>{
-        
-        if(selected_answer(chosenTheme, 'a')){
-            optA.classList.toggle('selected-answer');
-            console.log("resposta" + chosenTheme.resposta);
-        };
-        if(optA.getAttribute('id') == verifyOpt(optA)){
-            score++;
-            playerScore.children[1].innerHTML = score;
-            
-//            playerScore.children[1].appendChild(document.createTextNode(score));
-        }
-        console.log(optA.getAttribute('id'))
-        verifyOpt(optA);
-    })
-    optB.addEventListener("click", () =>{
+        mainQuizz(chosenTheme, questionIndex);
        
-        if(selected_answer(chosenTheme, 'b')){
-            optB.classList.toggle('selected-answer');
-            console.log("resposta" + chosenTheme.resposta);
-        }else{
-            optB.classList.toggle('incorrect-answer');
-        }
-        console.log(optB.getAttribute('id'))
-        verifyOpt(optB);
-    })
-    optC.addEventListener("click", () =>{
-        if(selected_answer(chosenTheme, 'c')){
-            optC.classList.toggle('selected-answer');
-        };
-        console.log(optC.getAttribute('id'))
-        verifyOpt(optC);
-    })
-
-}
-
-
-btnT1.addEventListener("click", ()=>{
-    var theme = this.animal_question;
-    ChangeScreen();
-    MakeQuestionPage(theme);
+    }else{
+        alert(`Acabou!\nSua pontuação foi: ${score} pontos\nClique em "OK" para reiniciar!`);
+        document.location.reload(true);
+    }
 })
-btnT2.addEventListener("click", ()=>{
-    var theme = this.prog_question;
-    ChangeScreen();
-    MakeQuestionPage(theme);
 })
-
-btnT3.addEventListener("click", ()=>{
-    var theme = this.animal_question;
-    ChangeScreen();
-    MakeQuestionPage(theme);
-})
-
-
-

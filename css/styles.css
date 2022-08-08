@@ -234,3 +234,6 @@ footer a:hover{
     text-decoration: underline;
 
 }
+[aria-disabled="true"] {
+    opacity: 0.5;
+  }
