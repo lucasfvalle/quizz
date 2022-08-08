@@ -72,8 +72,7 @@ var optC = document.getElementById('c');
 
 // Score
 var score = 0;
-playerScore.children[1].textContent = score;
-
+playerScore.children[1].textContent = 0;
 
 
 
@@ -174,7 +173,7 @@ themebt3.addEventListener("click", ()=>{
     
 })
 
-nextQuestion.addEventListener("click", ()=>{
+nextQuestion.addEventListener("click", (score)=>{
     questionIndex++;
     if(questionIndex <= 2){
         var selectOpt = document.getElementsByClassName('selected-answer');
