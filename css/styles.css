@@ -149,12 +149,12 @@ body{
     flex-direction: column;
     padding: 0;
     margin: 0;
-    row-gap: 2em;
+    row-gap: 1em;
     padding: 2em 1em 0em 1em;
 }
 .answer-item{
     display: flex;
-    height: 70px;
+    height: 80px;
     width: 100%;
     align-items: center;
     justify-content: center;
@@ -210,6 +210,7 @@ body{
     border: none;
 }
 .next-button:hover{
+    cursor: pointer;
     transition: ease-in-out .5s;
     background-image: linear-gradient(160deg, #0284d0 0%, #6db1a9 100%);
 }

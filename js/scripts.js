@@ -1,8 +1,4 @@
-document.addEventListener("DOMContentLoaded", ()=>{
-
-
 // Questões
-
 var prog_question = [
     {
         "pergunta" : "Quem foi o criador do Javascript?",
@@ -24,6 +20,20 @@ var prog_question = [
         "a" : "Linus Torvald",
         "b" : "Steve Wozniak",
         "c" : "Alan Turing",
+    },
+    {
+        "pergunta" : "Como inserimos um comentário em HTML?",
+        "resposta": "c", 
+        "a" : "/* Comentário */",
+        "b" : "/ Comentário /",
+        "c" : "<!-- Comentário -->",
+    },
+    {
+        "pergunta" : "O código <meta charset='UTF-8'> fica dentro entre:",
+        "resposta": "b", 
+        "a" : "<body> </body>",
+        "b" : "<head> </head>",
+        "c" : "<footer> </footer>",
     },
 ]
 var animal_question = [
@@ -48,48 +58,82 @@ var animal_question = [
         "b": "Golden Retriever",
         "c": "Pastor alemão",
     },
+    {
+        "pergunta" : "Qual o animal mais alto do mundo?",
+        "resposta" : "a",
+        "a": "Girafa",
+        "b": "Lula colossal",
+        "c": "Elefante africano",
+    },
+    {
+        "pergunta" : "Qual é a média de vida de um cachorro?",
+        "resposta" : "c",
+        "a": "3-5 anos",
+        "b": "14-20 anos",
+        "c": "10-13 anos",
+    },
 
+]
+var curious_question = [
+    {
+        "pergunta" : "Quem foi a primeira pessoa a viajar no Espaço?",
+        "resposta" : "a",
+        "a": "Yuri Gagarin",
+        "b": "A cadela Laika",
+        "c": "Buzz Aldrin",
+    },
+    {
+        "pergunta" : "Qual a montanha mais alta do mundo?",
+        "resposta" : "c",
+        "a": "Mauna Kea",
+        "b": "Monte Chimborazo",
+        "c": "Monte Everest",
+    },
+    {
+        "pergunta" : "Quem inventou a lâmpada?",
+        "resposta" : "b",
+        "a": "Graham Bell",
+        "b": "Thomas Edison",
+        "c": "Henry Ford",
+    },
+    {
+        "pergunta" : "Onde se localiza Machu Picchu?",
+        "resposta" : "a",
+        "a": "Peru",
+        "b": "Colômbia",
+        "c": "China",
+    },
+    {
+        "pergunta" : "Que país tem o formato de uma bota?",
+        "resposta" : "b",
+        "a": "Butão",
+        "b": "Itália",
+        "c": "México",
+    },
 ]
 
 // Telas
 var initialScreen = document.getElementById('initial');
 var questionScreen = document.getElementById('questions');
-
-// Score
-var playerScore = document.getElementById('player-score');
-
 // Escolha dos temas
 var themebt1 = document.getElementById('t1');
 var themebt2 = document.getElementById('t2');
 var themebt3 = document.getElementById('t3');
 var chosenTheme;
-
 // Elementos das perguntas
 var questionTitle = document.getElementById('question-title');
 let optA = document.getElementById('a');
 var optB = document.getElementById('b');
 var optC = document.getElementById('c');
-
-// Score
-var score = 0;
-playerScore.children[1].textContent = 0;
-
-
-
-
 // Próxima pergunta
 var nextQuestion = document.getElementById('next-button');
 var questionIndex = 0;
-
 // Estado inicial
 initialScreen.style.display = "flex";
 questionScreen.style.display = "none";
-playerScore.style.display = "none";
-
 const changeScreen = () =>{
     initialScreen.style.display = "none";
     questionScreen.style.display = "flex";
-    playerScore.style.display = "block";
 }
 const cleanQuestion = ()=>{
     optA.ariaDisabled = false;
@@ -106,19 +150,15 @@ const cleanQuestion = ()=>{
     optC.classList.remove('selected-answer');
     optC.classList.remove('incorrect-answer');
 }
-
 const mainQuizz = (theme, questionIndex) =>{
-
     cleanQuestion();
     theme = theme[questionIndex];
-
     // Preenche a pergunta e alternativas
     questionTitle.textContent = theme.pergunta
     optA.children[1].textContent = theme.a;
     optB.children[1].textContent = theme.b;
     optC.children[1].textContent = theme.c;
     console.log("Question(C): " + optC.children[0].textContent.toLowerCase());
-
     // Eventos das alternativas
     optA.addEventListener("click", ()=>{
         optB.ariaDisabled = true;
@@ -130,7 +170,6 @@ const mainQuizz = (theme, questionIndex) =>{
             optA.classList.add('incorrect-answer');c
         }
     })
-
     optB.addEventListener("click", ()=>{
         if(optB.children[0].textContent.toLowerCase() == theme.resposta){
             optA.ariaDisabled = true;
@@ -141,7 +180,6 @@ const mainQuizz = (theme, questionIndex) =>{
             optB.classList.add('incorrect-answer');
         }
     })
-
     optC.addEventListener("click", ()=>{
         if(optC.children[0].textContent.toLowerCase() == theme.resposta){
             optA.ariaDisabled = true;
@@ -152,40 +190,28 @@ const mainQuizz = (theme, questionIndex) =>{
             optC.classList.add('incorrect-answer');
         }
     })
-
 }
-
 themebt1.addEventListener("click", ()=>{
     changeScreen();   
     chosenTheme = prog_question; 
-    mainQuizz(chosenTheme, questionIndex);
-    
+    mainQuizz(chosenTheme, questionIndex);   
 })
 themebt2.addEventListener("click", ()=>{
     changeScreen();    
     chosenTheme = animal_question;
     mainQuizz(chosenTheme, questionIndex);
-    
 })
 themebt3.addEventListener("click", ()=>{
     changeScreen();    
+    chosenTheme = curious_question;
     mainQuizz(chosenTheme, questionIndex);
-    
 })
-
 nextQuestion.addEventListener("click", (score)=>{
     questionIndex++;
-    if(questionIndex <= 2){
-        var selectOpt = document.getElementsByClassName('selected-answer');
-        console.log(playerScore.children[1].textContent);
-        if(selectOpt){
-            playerScore.children[1].textContent = score++;
-        }
+    if(questionIndex <= 4){
         mainQuizz(chosenTheme, questionIndex);
-       
     }else{
-        alert(`Acabou!\nSua pontuação foi: ${score} pontos\nClique em "OK" para reiniciar!`);
+        confirm("As perguntas acabaram!\nConfime para reiniciar o Quizz.");
         document.location.reload(true);
     }
-})
 })
