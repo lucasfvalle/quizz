@@ -7,9 +7,11 @@ Aplicação de perguntas e respostas desenvolvido para fins de estudo em tecnolo
 // Linguagens
 
 
-HTML5;
-CSS3;
-JavaScript.
+- HTML5;
+
+- CSS3;
+
+- JavaScript.
 
 
 // Resumo
